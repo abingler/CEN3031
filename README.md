@@ -7,3 +7,4 @@ Video Game Support Website
 #Vrushali Desai: Vrush95
 #Thomas Williamson: mtmole
 #Andre Marin : amarin92
+#Alexis Taylor : actalexis
