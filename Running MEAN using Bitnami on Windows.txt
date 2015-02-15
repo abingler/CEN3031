@@ -1,0 +1,30 @@
+Running with Bitnami on Windows:
+
+1. Download and install the Bitnami MEAN stack installer here:
+    https://bitnami.com/stack/mean
+    
+2. I had to set different default ports of 81 for Apache and 444 for SSL (just +1 the defaults) 
+
+3. Run the MEAN environment batch file, from the install directory: 
+    C:\Bitnami\meanstack-2.6.7-0\
+    
+4. Use NPM (Node Package Manager) to install the node.js dependencies that aren't automatically on the git repo.
+    a) Do this by going to the CEN3031/Support directory:
+        C:\Projects\CEN3031\support (or where ever you cloned git to)
+    b) And typing:
+        npm install
+        
+5. Stay in this directory and run the app with:
+    node app
+    
+6. You should see "Express server listening on port 3000". In Chrome or Firefox just go to "http://localhost:3000" to see the app!
+
+    Select that you have a technical problem and type something like "no sounds" or "freezes" to see the code in action.
+
+7. This code doesn't use Mongo yet, so for those of you doing backend stuff, you'll need to set up a mongo database, which is described with Bitnami here:
+    https://wiki.bitnami.com/Components/mongoDB#How_to_create_a_database_for_a_custom_application.3f
+   
+8. This the template this was all based off of :
+    http://thecodebarbarian.wordpress.com/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/
+    
+    

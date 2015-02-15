@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="SupportModule">
+    <head>
+        <title>Auralux Support and Feedback</title>
+        <link rel='stylesheet' href='/javascripts/vendor/bootstrap-css/css/bootstrap.css' />
+        <script type='text/javascript' src='/javascripts/vendor/angular/angular.js'></script>
+        <script type='text/javascript' src='/javascripts/vendor/angular-bootstrap/ui-bootstrap-tpls.js'></script>
+        <script type='text/javascript' src='/javascripts/SupportModule.js'></script>
+    </head>
+    <body data-ng-controller="MainController as main" >
+        <div class="intro" data-ng-show="main.selected === 0">
+            <p>
+                Thanks for contacting War Drum Studios about Auralux. What do you need help with?
+            </p>
+            <ul>
+                <li><a href data-ng-click="main.select(1)">I am having technical problems with the game</a></li>
+                <li><a href data-ng-click="main.select(2)">I have a suggestion to make the game better!</a></li>
+                <li><a href data-ng-click="main.select(3)">I'd like to request a refund for a purchased item</a></li>
+            </ul>
+        </div>
+        
+        <div class="technical" data-ng-show="main.isSelected(1)" data-ng-controller="TechnicalController as tech">
+            <form novalidate data-ng-submit="tech.findSuggestions()" data-ng-show="!tech.shouldShowSendEmail() && !tech.shouldShowCongrats()">
+                Ok, that's not cool! Please describe your problem here and we'll try to help you immediately:
+                <br>
+                <input data-ng-model="tech.problem" type="text" required />
+                <br>
+                <input type="submit" data-ng-show="tech.shouldShowSubmit()"/>
+            </form>
+            <div data-ng-show="tech.shouldShowSuggestion()" data-ng-repeat="curSuggest in tech.suggestions">
+                <br>
+                {{ curSuggest.suggestion }}
+                <div data-ng-show="curSuggest.instructionLink != null">
+                    <br>
+                    <a target="_blank" data-ng-href="{{ curSuggest.instructionLink }}">Instructions</a>
+                </div>
+                <br>
+                <div data-ng-show="curSuggest === tech.suggestions[tech.suggestions.length-1]">
+                    Did that work?
+                    <a href data-ng-click="tech.foundSolution()">Yes</a>
+                    <a href data-ng-click="tech.nextSuggestion()">No</a>
+                </div>
+                <div data-ng-show="curSuggest !== tech.suggestions[tech.suggestions.length-1]">
+                    Ok, how about this:
+                    <br>
+                </div>
+            </div>
+            <div data-ng-show="tech.shouldShowSendEmail()">
+                Ok, it looks like we are going to have to work on this a little more. Make sure your problem is very well explained in the box below, provide us with your email address and we will get back to you as soon as possible.
+                <br>
+                <form novalidate data-ng-submit="tech.sendEmail()">
+                    <table>
+                        <tr>
+                            <td>Problem Description:</td>
+                            <td>
+                                <textarea rows="6" cols="50" data-ng-model="tech.problem" required>
+                                </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td>
+                                <input data-ng-model="tech.email" type="email" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="Submit"/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div data-ng-show="tech.shouldShowCongrats()">
+                <br>
+                Awesome, we're glad that worked for you! Thanks for playing Auralux! Please feel free to contact us if you have any other problems or suggestions.
+                <br>
+                <a target="_blank" href="https://www.facebook.com/pages/War-Drum-Studios/127406327275082">War Drum Studios on Facebook</a>
+                <br>
+                <a target="_blank" href="https://twitter.com/wardrumstudios">War Drum Studios on Twitter</a>
+            </div>
+        </div>
+            
+        <div class="suggestion" data-ng-show="main.isSelected(2)">
+            <p>
+                Great! Please send us an <a href="mailto:support@wardrumstudios.com?subject=Auralux Suggestion">email</a>. We are always eager to hear about new ideas and improvements for our games!
+            </p>
+        </div>
+            
+        <div class="refund" data-ng-show="main.isSelected(3)">
+            <p>
+                Ok, please send us an <a href="mailto:support@wardrumstudios.com?subject=Auralux Refund">email</a> with the details about what you need to be refunded and why. Please keep in mind we have a few policies regarding refunds for Auralux:
+            </p>
+            <ul>
+                <li>Refunds are only provided for purchases within the last 14 days</li>
+                <li>We can only cancel or refund orders through Apple or Google themselves, we cannot directly refund your account</li>
+                <li>Sometimes your purchases may not work for something easily fixable! For instance, try <a href="https://support.google.com/googleplay/troubleshooter/4592924?hl=en#ts=4592730">clearing your Google Play cache.</a></li>
+            </ul>
+        </div>
+    </body>
+</html>
