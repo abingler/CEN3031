@@ -1,5 +1,8 @@
+//Clear any existing data from the collection
+db.keywords.remove();
+
 //Enter data into database
-print("> Adding Shit");
+print("> Adding Keywords");
 
 //set up keywords
 var suggestionDB = [
@@ -46,4 +49,4 @@ var suggestionDB = [
     		db.keywords.insert(keyword);
     	});
 
-    print("> Shit has been added");
+    print("> Keywords has been added");
