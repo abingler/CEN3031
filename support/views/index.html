@@ -8,6 +8,16 @@
         <script type='text/javascript' src='/javascripts/SupportModule.js'></script>
     </head>
     <body data-ng-controller="MainController as main" >
+        <!--<div class="notintro" data-ng-controller="TodoListController"> <!--Added by Andrew B
+            <form data-ng-submit="TodoListController.Update()">
+                <input data-ng-model="TodoListController.keywords[0]" type="text" /> Keywords0 <br>
+                <input data-ng-model="TodoListController.keywords[1]" type="text" /> Keywords1 <br>
+                <input data-ng-model="TodoListController.keywords[2]" type="text" /> Keywords2 <br>
+                <input data-ng-model="TodoListController.suggestion" type="text" /> Suggestion <br>
+                <input data-ng-model="TodoListController.platform" type="text" /> Platform <br>
+                <input type="submit" />
+            </form>
+        </div>-->
         <div class="intro" data-ng-show="main.selected === 0">
             <p>
                 Thanks for contacting War Drum Studios about Auralux. What do you need help with?
@@ -18,7 +28,6 @@
                 <li><a href data-ng-click="main.select(3)">I'd like to request a refund for a purchased item</a></li>
             </ul>
         </div>
-        
         <div class="technical" data-ng-show="main.isSelected(1)" data-ng-controller="TechnicalController as tech">
             <form novalidate data-ng-submit="tech.findSuggestions()" data-ng-show="!tech.shouldShowSendEmail() && !tech.shouldShowCongrats()">
                 Ok, that's not cool! Please describe your problem here and we'll try to help you immediately:
@@ -27,6 +36,14 @@
                 <br>
                 <input type="submit" data-ng-show="tech.shouldShowSubmit()"/>
             </form>
+            <!--<form data-ng-submit="tech.uploadToMongolab()">
+                <input data-ng-model="tech.keywords[0]" type="text" /> Keywords0 <br>
+                <input data-ng-model="tech.keywords[1]" type="text" /> Keywords1 <br>
+                <input data-ng-model="tech.keywords[2]" type="text" /> Keywords2 <br>
+                <input data-ng-model="tech.suggestion" type="text" /> Suggestion <br>
+                <input data-ng-model="tech.platform" type="text" /> Platform <br>
+                <input type="submit" />
+            </form>-->
             <div data-ng-show="tech.shouldShowSuggestion()" data-ng-repeat="curSuggest in tech.suggestions">
                 <br>
                 {{ curSuggest.suggestion }}
@@ -81,7 +98,6 @@
                 <a target="_blank" href="https://twitter.com/wardrumstudios">War Drum Studios on Twitter</a>
             </div>
         </div>
-            
         <div class="suggestion" data-ng-show="main.isSelected(2)">
             <p>
                 Great! Please send us an <a href="mailto:support@wardrumstudios.com?subject=Auralux Suggestion">email</a>. We are always eager to hear about new ideas and improvements for our games!

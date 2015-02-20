@@ -12,7 +12,10 @@ var express = require('express')
 var app = express();
 
 var Mongoose = require('mongoose');
-var db = Mongoose.createConnection('mongodb://todouser:todopassword@localhost/tododb');
+
+//var db = Mongoose.createConnection('mongodb://todouser:todopassword@localhost/tododb'); //This is the old connection to local host
+
+var db = Mongoose.createConnection('mongodb://todouser:todopassword@ds045031.mongolab.com:45031/tododb');
 
 var TodoSchema = require('./models/Todo.js').TodoSchema;
 var Todo = db.model('todos', TodoSchema);

@@ -1,5 +1,7 @@
 (function() {
     var app = angular.module('SupportModule', ['ui.bootstrap']);
+    //var mongoose = require('mongoose');
+    //var schema = mongoose.model('TodoSchema');
 
     app.controller('MainController', function(){
         this.selected = 0;
@@ -23,6 +25,10 @@
         this.showError = false;
         this.showCongrats = false;
         
+//        this.uploadToMongolab = function(req, res) {
+//            res.jsonp(new schema(req.body));
+//        }
+        
         this.shouldShowSuggestion = function() {
             return this.showSuggestion;
         }
@@ -45,7 +51,7 @@
                 this.showError = true;
             }
             
-            $log.log("Looking for suggestions...");
+            $log.log("Looking for suggestions..."); //Likely need to call suggestionDB somewhere here
             
             this.showError = false;
             this.pendingSuggestions = [];
