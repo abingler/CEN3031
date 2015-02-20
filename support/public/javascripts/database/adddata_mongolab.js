@@ -1,9 +1,9 @@
 //clear any exisiting data from collection
-db.keywords.remove({});
+db.suggestionCollection.remove({});
 
 
 //Enter data into database
-print("> Removed stuff. Adding keywords");
+print("> Removed stuff. Adding suggestionCollection");
 
 //set up keywords
 var suggestionDB = [
@@ -43,11 +43,11 @@ var suggestionDB = [
     //Add each name to the collection
     suggestionDB.forEach(
     	function(suggestion){
-    		var keyword = {
-    			suggestion: suggestion
+    		var store = {
+    			suggestionGroup: suggestion
 
     		};
-    		db.keywords.insert(keyword);
+    		db.suggestionCollection.insert(store);
     	});
 
-    print("> keywords has been added");
+    print("> suggestionCollection has been added");

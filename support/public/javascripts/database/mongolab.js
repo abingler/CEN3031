@@ -2,12 +2,12 @@
 
 
 //Connect to MongoLab database
-var connection = new Mongo( "ds047571.mongolab.com:47571" );
+var connection = new Mongo( "ds045031.mongolab.com:45031" );
 
 //Connect to the test database
 var db = connection.getDB( "tododb" );
 
 //Authorize this connection
-db.auth( "actalexis","todopassword1" );
+db.auth( "todouser","todopassword" );
 
 print( "> MongoLab connection and DB defined.");
