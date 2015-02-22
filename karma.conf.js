@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Wed Feb 18 2015 12:47:29 GMT-0500 (Eastern Standard Time)
+// Generated on Sun Feb 22 2015 16:15:24 GMT-0500 (Eastern Standard Time)
 
 module.exports = function(config) {
   config.set({
@@ -10,18 +10,20 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'requirejs'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      './support/app.js'
+	
+      'test-main.js',
+      {pattern: './support/public/tests/unit tests/*.js', included: true},
+      {pattern: './support/app.js', included: false}
     ],
 
 
     // list of files to exclude
     exclude: [
-	
     ],
 
 
@@ -56,17 +58,11 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Firefox', 'Chrome'],
-	plugins : [ 'karma-junit-reporter',
-        'karma-chrome-launcher',
-        'karma-firefox-launcher',
-        'karma-jasmine',
-        //'karma-phantomjs-launcher'
-		],
+    browsers: ['Chrome', 'Firefox', 'PhantomJS'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    singleRun: false
   });
 };
