@@ -7,15 +7,17 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path') 
+  , Mongoose = require('mongoose')
+  , mongo = require('mongodb');
 
 var app = express();
 
-var Mongoose = require('mongoose');
+
 
 //var db = Mongoose.createConnection('mongodb://todouser:todopassword@localhost/tododb'); //This is the old connection to local host
 
-var db = Mongoose.createConnection('mongodb://todouser:todopassword@ds045031.mongolab.com:45031/tododb');
+var db = Mongoose.createConnection('mongodb://todouser:todopassword@ds045031.mongolab.com:45031/tododb'); //May be wrong?
 
 var TodoSchema = require('./models/Todo.js').TodoSchema;
 var Todo = db.model('todos', TodoSchema);
@@ -31,6 +33,13 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*//Make our db accessible to our router (Andrew B)
+app.use(function(req,res,next){
+    req.db = db;
+    next():
+}
+*/
+        
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
