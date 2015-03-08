@@ -8,7 +8,7 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path') 
-  , Mongoose = require('mongoose')
+  , mongoose = require('mongoose')
   , mongo = require('mongodb');
 
 var app = express();
@@ -17,7 +17,8 @@ var app = express();
 
 //var db = Mongoose.createConnection('mongodb://todouser:todopassword@localhost/tododb'); //This is the old connection to local host
 
-var db = Mongoose.createConnection('mongodb://todouser:todopassword@ds045031.mongolab.com:45031/tododb'); //May be wrong?
+mongoose.connect('mongodb://todouser:todopassword@ds045031.mongolab.com:45031/tododb');
+db = mongoose.createConnection('mongodb://todouser:todopassword@ds045031.mongolab.com:45031/tododb'); 
 
 var TodoSchema = require('./models/Todo.js').TodoSchema;
 var Todo = db.model('todos', TodoSchema);
@@ -52,6 +53,9 @@ app.get('/todos.json', routes.get(Todo));
 app.put('/todo/:id.json', routes.update(Todo));
 
 app.post('/todo.json', routes.addTodo(Todo));
+
+//TEST
+app.get('/suggestions', routes.getSuggestions);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

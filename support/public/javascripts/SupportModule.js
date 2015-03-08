@@ -94,7 +94,7 @@
         }
     }]);
     
-    var suggestionDB = [
+     var suggestionDB = [
         {
             keywords: ["freeze", "black", "not respond"],
             suggestion: "Rebooting your device may help. To reboot it, turn it completely off and back on again."
