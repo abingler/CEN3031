@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , database = require('./routes/database')
   , http = require('http')
   , path = require('path') 
   , mongoose = require('mongoose')
@@ -34,12 +35,6 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*//Make our db accessible to our router (Andrew B)
-app.use(function(req,res,next){
-    req.db = db;
-    next():
-}
-*/
         
 // development only
 if ('development' == app.get('env')) {
@@ -54,9 +49,10 @@ app.put('/todo/:id.json', routes.update(Todo));
 
 app.post('/todo.json', routes.addTodo(Todo));
 
-//TEST
-app.get('/suggestions', routes.getSuggestions);
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+//Database Testing
+app.get('/suggestions', database.getSuggestions);
