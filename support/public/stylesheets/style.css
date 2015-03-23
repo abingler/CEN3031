@@ -1,10 +1,19 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  color: white;
+  color: black;
   background-color: black;
 }
 
 a {
-  color: #00B7FF;
+  color: #2003fd;
+}
+
+div.center_box {
+	width:500px;
+	margin:0px auto;
+	text-align:left;
+	padding:15px;
+	border:3px solid #ffffff;
+	background-color:#b7b7b7;
 }
