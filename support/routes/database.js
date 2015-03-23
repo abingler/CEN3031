@@ -60,6 +60,29 @@ exports.getSuggestions = function(req, res){
     console.log("working");
 };
 
+
+exports.searchSuggestions = function(req, res){
+   /* suggestionsSchema.findOne({platform: "iOS" }, function(err, docs){
+        console.log(err);
+        console.log(docs);
+    }); */
+     suggestionsSchema.find({keywords: 'freeze'})
+    .exec(function(err, suggestion) {
+        if(err){
+            console.log(err);
+            res.status(500).json({status: 'failure'});
+        }else{
+            console.log(suggestion);
+            res.json(suggestion);
+
+        }
+    });  
+    //console.log(suggestionsSchema.find());
+    console.log("working");
+};
+
+
+
      var suggestionDB = [
         {
             keywords: ["freeze", "black", "not respond"],

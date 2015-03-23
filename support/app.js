@@ -10,7 +10,8 @@ var express = require('express')
   , http = require('http')
   , path = require('path') 
   , mongoose = require('mongoose')
-  , mongo = require('mongodb');
+  , mongo = require('mongodb')
+  , schema = require('./schemas/suggestions');
 
 var app = express();
 
@@ -56,3 +57,4 @@ http.createServer(app).listen(app.get('port'), function(){
 
 //Database Testing
 app.get('/suggestions', database.getSuggestions);
+app.get('/search', database.searchSuggestions);
