@@ -17,3 +17,18 @@ div.center_box {
 	border:3px solid #ffffff;
 	background-color:#b7b7b7;
 }
+
+input[type=text], input[type=email] {
+    border-radius: 10px;
+    width: 280px;
+}
+
+textarea{
+    border-radius: 10px;
+    resize: none;
+    width: 280px;
+}
+
+td.td_header {
+  color: #2003fd;
+}
