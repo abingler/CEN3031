@@ -42,6 +42,16 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+
+
+/*app.get('/suggestions', function(req, res){
+  mongoose.model('suggestionCollection2').find(function(err, keywords){
+  res.send(suggestions);
+  });
+});
+*/
+
+
 app.get('/', routes.index(Todo));
 app.get('/users', user.list);
 app.get('/todos.json', routes.get(Todo));
@@ -56,5 +66,6 @@ http.createServer(app).listen(app.get('port'), function(){
 
 
 //Database Testing
-app.get('/suggestions', database.getSuggestions);
-app.get('/search', database.searchSuggestions);
+app.put('/suggestions', database.getSuggestions);
+app.get('/search/:keywords', database.searchSuggestions);
+

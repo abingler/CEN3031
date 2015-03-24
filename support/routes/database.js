@@ -66,7 +66,7 @@ exports.searchSuggestions = function(req, res){
         console.log(err);
         console.log(docs);
     }); */
-     suggestionsSchema.find({keywords: 'freeze'})
+     suggestionsSchema.find({keywords: req.params.keywords})
     .exec(function(err, suggestion) {
         if(err){
             console.log(err);
