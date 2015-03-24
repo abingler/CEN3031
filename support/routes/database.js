@@ -73,7 +73,8 @@ exports.searchSuggestions = function(req, res){
             res.status(500).json({status: 'failure'});
         }else{
             console.log(suggestion);
-            res.json(suggestion);
+            res.json({status: 'success'}, suggestion);
+            //res.locals.suggestion = suggestion;
 
         }
     });  

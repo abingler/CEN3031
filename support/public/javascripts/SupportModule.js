@@ -15,7 +15,7 @@
         }
     });
     
-    app.controller('TechnicalController', ['$log', function($log) {
+    app.controller('TechnicalController', ['$log', '$location', '$scope', '$http', '$timeout', function($log, $location, $scope, $http, $timeout) {
         this.problem = "";
         this.error = "";
         this.suggestions = [];
@@ -54,24 +54,35 @@
             $log.log("Looking for suggestions..."); //Likely need to call suggestionDB somewhere here
             
             this.showError = false;
-            this.pendingSuggestions = [];
-            for (suggest in suggestionDB) {
-                for (keyword in suggestionDB[suggest].keywords) {
-                    var curWord = suggestionDB[suggest].keywords[keyword];
+           //$scope.suggestionDB2 = app.get('/search/' + this.problem);
+           $http.get('/search/' + this.problem).success(function(data) {
+             this.pendingSuggestions = data;
+             pendingSuggestions.callback();
+             nextSuggestion();
+             //$timeout($scope.nextSuggestion(), 500);
+           });
+
+           //$timeout(function() {
+             
+        //}, 500);
+            //$location.path('/search/' + this.problem);
+            //var suggestionDB2 = this.suggestion; //THIS IS THE LINE TO FIX
+/*            for (suggest in suggestionDB2) {
+                console.log(suggestionDB2);
+                console.log(suggest);
+                for (keyword in suggestionDB2[suggest].keywords) {
+                    var curWord = suggestionDB2[suggest].keywords[keyword];
                     if (this.problem.toLowerCase().indexOf(curWord) > -1) {
                         // the problem contains this keyword!
-                        this.pendingSuggestions.push(suggestionDB[suggest]);
+                        this.pendingSuggestions.push(suggestionDB2[suggest]);
                         break; // no dups
                     }
                 }
-            }
+            }*/
             
-            $log.log("Found " + this.suggestions.length + " suggestions");
-            
-            this.nextSuggestion();
         }
         
-        this.nextSuggestion = function() {
+        $scope.nextSuggestion = function() {
             if (this.pendingSuggestions.length) {
                 this.suggestions.push(this.pendingSuggestions[0]);
                 this.pendingSuggestions.shift();
