@@ -14,7 +14,7 @@ body {
 a {
   color: #ff9800;
   -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: #805000;
+  -webkit-text-stroke-color: #B07800;
 }
 
 div.center_box {
@@ -30,12 +30,16 @@ div.center_box {
 input[type=text], input[type=email] {
     border-radius: 10px;
     width: 280px;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 textarea{
     border-radius: 10px;
     resize: none;
     width: 280px;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 td.td_header {

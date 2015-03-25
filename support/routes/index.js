@@ -6,10 +6,17 @@
 exports.index = function(Todo) {
   return function(req, res) {
     Todo.find({}, function(error, todos) {
-      res.render(req.params[0] + '.html', {
-        title: 'Express',
-        todos : todos
-      });
+        if (req.params.length == 0) {
+          res.render('auralux.html', {
+            title: 'Express',
+            todos : todos
+          });   
+        } else {
+          res.render(req.params[0] + '.html', {
+            title: 'Express',
+            todos : todos
+          });   
+        }
     });
   };
 };
