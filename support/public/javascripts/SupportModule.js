@@ -52,27 +52,20 @@
             }
             
             $log.log("Looking for suggestions..."); //Likely need to call suggestionDB somewhere here
-            
+            $log.log(this);
             this.showError = false;
 
-           $http.get('/search/' + this.problem.toLowerCase()).success(this.successCallback);
-            $log.log(this.pendingSuggestions);
-            /*
-           //$scope.suggestionDB2 = app.get('/search/' + this.problem);
+           this.pendingSuggestions = [];
+           var view = this;
            $http.get('/search/' + this.problem.toLowerCase()).then(function(data) {
 
-             //pendingSuggestions.callback();
              $log.log(data.data);
-             this.pendingSuggestions = data.data;
-             //$timeout($scope.nextSuggestion(), 500);
+             view.pendingSuggestions = data.data;
+             view.nextSuggestion();
+          
            });
-            $log.log(this.pendingSuggestions);*/
-
-             //this.nextSuggestion(); 
-            //while(data === 1){};
-           //$timeout(function() {
-             
-        //}, 500);
+            $log.log(this.pendingSuggestions);
+            //old code that connected to array at the bottom
             //$location.path('/search/' + this.problem);
             //var suggestionDB2 = this.suggestion; //THIS IS THE LINE TO FIX
 /*            for (suggest in suggestionDB2) {
@@ -90,14 +83,10 @@
             
         }
 
-        this.successCallback = function(data) {
-            $log.log(data);
-            this.pendingSuggestions = data.data;
-            this.nextSuggestion();
-            $log.log(this.pendingSuggestions);
-        }
+
         
         this.nextSuggestion = function() {
+             $log.log("Made it to nextsuggestion");
             if (this.pendingSuggestions.length) {
                 this.suggestions.push(this.pendingSuggestions[0]);
                 this.pendingSuggestions.shift();
