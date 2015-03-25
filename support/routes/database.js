@@ -71,7 +71,7 @@ exports.searchSuggestions = function(req, res){
                 "for (keyword in this.keywords) {" +
                 "    var curWord = this.keywords[keyword];" +
                 "    if (query.indexOf(curWord) > -1) {" +
-                         "if (this.game.length && this.game !== \'" + req.params.game + "\') continue;" + 
+                         "if (this.hasOwnProperty('game') && this.game !== \'" + req.params.game + "\') continue;" + 
                 "        return true;" +
                 "    }" +
                 "}" +
