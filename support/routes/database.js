@@ -64,8 +64,9 @@ exports.getSuggestions = function(req, res){
 exports.searchSuggestions = function(req, res){
      // we need to create a custom $where function using our query since we
      // do a specialized string search based on an array of possible keywords per entry
+     var replacequote = req.params.keywords.toLowerCase().replace("\'", "\\\'");
      var func = new Function("return function(){ " +
-                "var query = '" + req.params.keywords.toLowerCase() + "';" +
+                "var query = '" + replacequote + "';" +
                 "for (keyword in this.keywords) {" +
                 "    var curWord = this.keywords[keyword];" +
                 "    if (query.indexOf(curWord) > -1) {" +
