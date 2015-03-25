@@ -6,7 +6,7 @@
 exports.index = function(Todo) {
   return function(req, res) {
     Todo.find({}, function(error, todos) {
-      res.render('index.html', {
+      res.render(req.params[0] + '.html', {
         title: 'Express',
         todos : todos
       });
