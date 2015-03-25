@@ -6,7 +6,7 @@
 exports.index = function(Todo) {
   return function(req, res) {
     Todo.find({}, function(error, todos) {
-        if (req.params.length == 0) {
+        if (req.params.length === 0) {
           res.render('auralux.html', {
             title: 'Express',
             todos : todos

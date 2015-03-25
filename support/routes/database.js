@@ -52,7 +52,7 @@ exports.getSuggestions = function(req, res){
         if(err){
             console.log(err);
             res.status(500).json({status: 'failure'});
-        }else{
+        } else {
             console.log(suggestion);
         }
     });  
@@ -62,11 +62,21 @@ exports.getSuggestions = function(req, res){
 
 
 exports.searchSuggestions = function(req, res){
-   /* suggestionsSchema.findOne({platform: "iOS" }, function(err, docs){
-        console.log(err);
-        console.log(docs);
-    }); */
-     suggestionsSchema.find({keywords: req.params.keywords})
+     // we need to create a custom $where function using our query since we
+     // do a specialized string search based on an array of possible keywords per entry
+     var func = new Function("return function(){ " +
+                "var query = '" + req.params.keywords.toLowerCase() + "';" +
+                "for (keyword in this.keywords) {" +
+                "    var curWord = this.keywords[keyword];" +
+                "    if (query.indexOf(curWord) > -1) {" +
+                "        return true;" +
+                "    }" +
+                "}" +
+        "return false;" +
+         "};")();
+    
+    // TODO : this should use $or { currentPlatform, "" } and $or { currentGame, "" }
+     suggestionsSchema.find({$where: func})
     .exec(function(err, suggestion) {
         if(err){
             console.log(err);
@@ -78,7 +88,7 @@ exports.searchSuggestions = function(req, res){
 
         }
     });  
-    //console.log(suggestionsSchema.find());
+    
     console.log("working");
 };
 
