@@ -54,14 +54,22 @@
             $log.log("Looking for suggestions..."); //Likely need to call suggestionDB somewhere here
             
             this.showError = false;
+
+           $http.get('/search/' + this.problem.toLowerCase()).success(this.successCallback);
+            $log.log(this.pendingSuggestions);
+            /*
            //$scope.suggestionDB2 = app.get('/search/' + this.problem);
-           $http.get('/search/' + this.problem).success(function(data) {
-             this.pendingSuggestions = data;
-             pendingSuggestions.callback();
-             nextSuggestion();
+           $http.get('/search/' + this.problem.toLowerCase()).then(function(data) {
+
+             //pendingSuggestions.callback();
+             $log.log(data.data);
+             this.pendingSuggestions = data.data;
              //$timeout($scope.nextSuggestion(), 500);
            });
+            $log.log(this.pendingSuggestions);*/
 
+             //this.nextSuggestion(); 
+            //while(data === 1){};
            //$timeout(function() {
              
         //}, 500);
@@ -81,8 +89,15 @@
             }*/
             
         }
+
+        this.successCallback = function(data) {
+            $log.log(data);
+            this.pendingSuggestions = data.data;
+            this.nextSuggestion();
+            $log.log(this.pendingSuggestions);
+        }
         
-        $scope.nextSuggestion = function() {
+        this.nextSuggestion = function() {
             if (this.pendingSuggestions.length) {
                 this.suggestions.push(this.pendingSuggestions[0]);
                 this.pendingSuggestions.shift();
