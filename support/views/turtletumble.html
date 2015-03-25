@@ -37,7 +37,7 @@
                     <li class="main_option"><a href data-ng-click="main.select(3)">I'd like to request a refund for a purchased item</a></li>
                 </ul>
             </div>
-            <div class="technical" data-ng-show="main.isSelected(1)" data-ng-controller="TechnicalController as tech">
+            <div class="technical" data-ng-show="main.isSelected(1)" data-ng-controller="TechnicalController as tech" data-ng-init="tech.game = 'turtle tumble'">
                 <form novalidate data-ng-submit="tech.findSuggestions()" data-ng-show="!tech.shouldShowSendEmail() && !tech.shouldShowCongrats()">
                     Ok, that's not cool! Please describe your problem here and we'll try to help you immediately:
                     <br><br>

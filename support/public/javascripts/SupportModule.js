@@ -24,6 +24,7 @@
         this.showSendEmail = false;
         this.showError = false;
         this.showCongrats = false;
+        this.game = "default";
         
 //        this.uploadToMongolab = function(req, res) {
 //            res.jsonp(new schema(req.body));
@@ -46,6 +47,8 @@
         }
         
         this.findSuggestions = function() {
+            $log.log(this.game);
+            
             if (this.problem.length == 0) {
                 this.error = "Please type in your problem so we can help you!";
                 this.showError = true;
