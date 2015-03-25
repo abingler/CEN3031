@@ -112,7 +112,7 @@
         }
     }]);
     
-     var suggestionDB = [
+/*     var suggestionDB = [
         {
             keywords: ["freeze", "black", "not respond"],
             suggestion: "Rebooting your device may help. To reboot it, turn it completely off and back on again."
@@ -144,5 +144,5 @@
             keywords: ["no sound", "no music", "can't hear"],
             suggestion: "To make sure it's a problem with the game, check to make sure other apps and games make sounds with no problem. If they don't, please check for systemic problems such as having your phone on silent, or unwanted headphones in your headphone jack."
         }
-    ];
+    ];*/
 })();
