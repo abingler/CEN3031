@@ -101,6 +101,16 @@ exports.searchSuggestions = function(req, res){
             suggestion: "Rebooting your device may help. To reboot it, turn it completely off and back on again."
         },
         {
+            keywords: ["which game"],
+            suggestion: "You are playing Auralux",
+            game: "Auralux"
+        },
+        {
+            keywords: ["which game"],
+            suggestion: "You are playing turtle tumble",
+            game: "turtle tumble"
+        },
+        {
             keywords: ["freeze", "black", "not respond"],
             suggestion: "Make sure your operating system is completely up to date. Check for updates under Settings, then System Information."
         },
