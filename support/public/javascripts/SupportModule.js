@@ -60,7 +60,7 @@
 
            this.pendingSuggestions = [];
            var view = this;
-           $http.get('/search/' + this.problem.toLowerCase()).then(function(data) {
+           $http.get('/search/' + this.problem.toLowerCase() + '/' + this.game).then(function(data) {
 
              $log.log(data.data);
              view.pendingSuggestions = data.data;

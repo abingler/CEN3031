@@ -65,6 +65,7 @@ exports.searchSuggestions = function(req, res){
      // we need to create a custom $where function using our query since we
      // do a specialized string search based on an array of possible keywords per entry
      var replacequote = req.params.keywords.toLowerCase().replace("\'", "\\\'");
+     console.log("This is the game" + req.params.game);
      var func = new Function("return function(){ " +
                 "var query = '" + replacequote + "';" +
                 "for (keyword in this.keywords) {" +
@@ -77,7 +78,7 @@ exports.searchSuggestions = function(req, res){
          "};")();
     
     // TODO : this should use $or { currentPlatform, "" } and $or { currentGame, "" }
-     suggestionsSchema.find({$where: func})
+     suggestionsSchema.find({$where: func}/*, {game: req.params.game}*/)
     .exec(function(err, suggestion) {
         if(err){
             console.log(err);

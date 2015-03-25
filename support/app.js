@@ -69,5 +69,5 @@ http.createServer(app).listen(app.get('port'), function(){
 
 //Database Testing
 app.get('/suggestions', database.addSuggestions);
-app.get('/search/:keywords', database.searchSuggestions);
+app.get('/search/:keywords/:game', database.searchSuggestions);
 
