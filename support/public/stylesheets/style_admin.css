@@ -1,0 +1,38 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: black;
+  background-color: grey;
+}
+
+h1 {
+	text-align:center;
+}
+
+a {
+  color: #2003fd;
+}
+
+div.center_box {
+	width:500px;
+	margin:0px auto;
+	text-align:left;
+	padding:15px;
+	border:3px solid #ffffff;
+	background-color:#b7b7b7;
+}
+
+input[type=text], input[type=email] {
+    border-radius: 10px;
+    width: 280px;
+}
+
+textarea{
+    border-radius: 10px;
+    resize: none;
+    width: 280px;
+}
+
+td.td_header {
+  color: #2003fd;
+}

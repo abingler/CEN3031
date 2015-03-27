@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="AdminModule">
+    <head>
+        <title>Admin Console</title>
+        <link rel='stylesheet' href='/javascripts/vendor/bootstrap-css/css/bootstrap.css' />
+        <link rel='stylesheet' href='/stylesheets/style_admin.css' />
+        <script type='text/javascript' src='/javascripts/vendor/angular/angular.js'></script>
+        <script type='text/javascript' src='/javascripts/vendor/angular-bootstrap/ui-bootstrap-tpls.js'></script>
+        <script type='text/javascript' src='/javascripts/AdminModule.js'></script>
+    </head>
+    <body data-ng-controller="MainController as main" >
+        <h1>Support Database</h1>
+        <br/>
+        <div class="center_box">
+            <div class="display_entry" data-ng-repeat="curSuggest in main.suggestionDB">
+                <strong>Entry:</strong> {{ $index }}
+                <br>
+                <strong>Keywords:</strong> {{ curSuggest.keywords }}
+                <br>
+                <strong>Suggestion:</strong> {{ curSuggest.suggestion }}
+                <br>
+                <strong>Platform:</strong> {{ curSuggest.platform }}
+                <br>
+                <strong>Game:</strong> {{ curSuggest.game }}
+                <br>
+                <br>
+            </div>
+            <!--<div class="notintro" data-ng-controller="TodoListController"> <!--Added by Andrew B
+                <form data-ng-submit="TodoListController.Update()">
+                    <input data-ng-model="TodoListController.keywords[0]" type="text" /> Keywords0 <br>
+                    <input data-ng-model="TodoListController.keywords[1]" type="text" /> Keywords1 <br>
+                    <input data-ng-model="TodoListController.keywords[2]" type="text" /> Keywords2 <br>
+                    <input data-ng-model="TodoListController.suggestion" type="text" /> Suggestion <br>
+                    <input data-ng-model="TodoListController.platform" type="text" /> Platform <br>
+                    <input type="submit" />
+                </form>
+            </div>-->
+            <div class="intro" data-ng-show="main.selected === 0 && false">
+                <p>
+                    Welcome to the admin console!
+                </p>
+                <ul>
+                    <li class="main_option"><a href data-ng-click="main.select(1)">I am having technical problems with the game</a></li>
+                    <li class="main_option"><a href data-ng-click="main.select(2)">I have a suggestion to make the game better!</a></li>
+                    <li class="main_option"><a href data-ng-click="main.select(3)">I'd like to request a refund for a purchased item</a></li>
+                </ul>
+            </div>
+            <div class="technical" data-ng-show="main.isSelected(1)" data-ng-controller="TechnicalController as tech" data-ng-init="tech.game = 'Auralux'">
+                <form novalidate data-ng-submit="tech.findSuggestions()" data-ng-show="!tech.shouldShowSendEmail() && !tech.shouldShowCongrats()">
+                    Ok, that's not cool! Please describe your problem here and we'll try to help you immediately:
+                    <br><br>
+                    <input data-ng-model="tech.problem" type="text" required />
+                    <br>
+                    <input type="submit" data-ng-show="tech.shouldShowSubmit()"/>
+                </form>
+                <!--<form data-ng-submit="tech.uploadToMongolab()">
+                    <input data-ng-model="tech.keywords[0]" type="text" /> Keywords0 <br>
+                    <input data-ng-model="tech.keywords[1]" type="text" /> Keywords1 <br>
+                    <input data-ng-model="tech.keywords[2]" type="text" /> Keywords2 <br>
+                    <input data-ng-model="tech.suggestion" type="text" /> Suggestion <br>
+                    <input data-ng-model="tech.platform" type="text" /> Platform <br>
+                    <input type="submit" />
+                </form>-->
+                <div data-ng-show="tech.shouldShowSuggestion()" data-ng-repeat="curSuggest in tech.suggestions">
+                    {{ curSuggest.suggestion }}
+                    <div data-ng-show="curSuggest.instructionLink != null">
+                        <br>
+                        <a target="_blank" data-ng-href="{{ curSuggest.instructionLink }}">Instructions</a>
+                    </div>
+                    <br>
+                    <div data-ng-show="curSuggest === tech.suggestions[tech.suggestions.length-1]">
+                        <br>Did that work?
+                        <a href data-ng-click="tech.foundSolution()">Yes</a>
+                        <a href data-ng-click="tech.nextSuggestion()">No</a>
+                    </div>
+                    <div data-ng-show="curSuggest !== tech.suggestions[tech.suggestions.length-1]">
+                        <br>Ok, how about this:
+                        <br><br>
+                    </div>
+                </div>
+                <div data-ng-show="tech.shouldShowSendEmail()">
+                    Ok, it looks like we are going to have to work on this a little more. Make sure your problem is very well explained in the box below, provide us with your email address and we will get back to you as soon as possible.
+                    <br><br>
+                    <form novalidate data-ng-submit="tech.sendEmail()">
+                        <table>
+                            <tr>
+                                <td class="td_header">Problem Description:</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea rows="6" data-ng-model="tech.problem" required>
+                                    </textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_header">Email:</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input data-ng-model="tech.email" type="email" required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                    <input type="Submit"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div data-ng-show="tech.shouldShowCongrats()">
+                    Awesome! We're glad that worked for you! Thanks for playing Auralux! Please feel free to contact us if you have any other problems or suggestions.
+                    <br><br>
+                    <a target="_blank" href="https://www.facebook.com/pages/War-Drum-Studios/127406327275082">War Drum Studios on Facebook</a>
+                    <br><br>
+                    <a target="_blank" href="https://twitter.com/wardrumstudios">War Drum Studios on Twitter</a>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
