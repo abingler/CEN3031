@@ -1,11 +1,16 @@
+Array.prototype.move = function(from, to) {
+    this.splice(to, 0, this.splice(from, 1)[0]);
+};
+
 (function() {
     var app = angular.module('AdminModule', ['ui.bootstrap']);
-    //var mongoose = require('mongoose');
-    //var schema = mongoose.model('TodoSchema');
 
-    app.controller('MainController', function(){
+    app.controller('MainController', ['$log', '$location', '$scope', '$http', '$timeout', function($log, $location, $scope, $http, $timeout) {
         this.selected = 0;
+        
+        // LOAD DATABASE HERE
         this.suggestionDB = suggestionDB;
+        this.editing = 2;
         
         this.select = function(withSelect) {
             this.selected = withSelect;
@@ -14,79 +19,51 @@
         this.isSelected = function(withSelect) {
             return this.selected === withSelect;
         }
-    });
-    
-    app.controller('TechnicalController', ['$log', '$location', '$scope', '$http', '$timeout', function($log, $location, $scope, $http, $timeout) {
-        this.problem = "";
-        this.error = "";
-        this.suggestions = [];
-        this.pendingSuggestions = [];
-        this.showSuggestion = false;
-        this.showSendEmail = false;
-        this.showError = false;
-        this.showCongrats = false;
-        this.game = "default";
         
-        this.shouldShowSuggestion = function() {
-            return this.showSuggestion;
+        this.isEditing = function(withEditing) {
+            return this.editing === withEditing;
         }
         
-        this.shouldShowSendEmail = function() {
-            return this.showSendEmail;
+        this.deleteKeyword = function(withIndex) {
+            this.suggestionDB[this.editing].keywords.splice(withIndex,1);
         }
         
-        this.shouldShowCongrats = function() {
-            return this.showCongrats;
+        this.addKeyword = function() {
+            this.suggestionDB[this.editing].keywords.push("");
         }
         
-        this.shouldShowSubmit = function() {
-            return !this.showSuggestion && !this.showSendEmail && !this.showCongrats;
+        this.apply = function() {
+            this.editing = -1;
         }
         
-        this.findSuggestions = function() {
-            if (this.problem.length == 0) {
-                this.error = "Please type in your problem so we can help you!";
-                this.showError = true;
-            }
-            
-            this.showError = false;
-            
-            this.pendingSuggestions = [];
-            for (suggest in suggestionDB) {
-                for (keyword in suggestionDB[suggest].keywords) {
-                    var curWord = suggestionDB[suggest].keywords[keyword];
-                    if (this.problem.toLowerCase().indexOf(curWord) > -1) {
-                        // the problem contains this keyword!
-                        this.pendingSuggestions.push(suggestionDB2[suggest]);
-                        break; // no dups
-                    }
-                }
-            }
-            
-            this.nextSuggestion();
+        this.edit = function(withIndex) {
+            this.editing = withIndex;
         }
         
-        this.nextSuggestion = function() {
-             $log.log("Made it to nextsuggestion");
-            if (this.pendingSuggestions.length) {
-                this.suggestions.push(this.pendingSuggestions[0]);
-                this.pendingSuggestions.shift();
-                this.showSuggestion = true;
-                this.showSendEmail = false;
-            } else {
-                this.suggestions = [];
-                this.showSendEmail = true;
-                this.showSuggestion = false;
-            }
+        this.delete = function(withIndex) {
+            this.suggestionDB.splice(withIndex,1);
         }
         
-        this.foundSolution = function() {
-            this.showCongrats = true;
-            this.showSuggestion = false;
+        this.moveUp = function(withIndex) {
+            this.suggestionDB.move(withIndex, withIndex-1);
         }
         
-        this.sendEmail = function() {
-            
+        this.moveDown = function(withIndex) {
+            this.suggestionDB.move(withIndex, withIndex+1);
+        }
+        
+        this.addNew = function() {
+            this.suggestionDB.push(
+                {
+                    keywords: ["first keyword"],
+                    suggestion: "New suggestion"
+                });
+            this.editing = this.suggestionDB.length - 1;
+        }
+        
+        this.saveChanges = function() {
+            // SAVE DATABASE HERE
+            $log.log("TODO : save to MongoDB");
         }
     }]);
     

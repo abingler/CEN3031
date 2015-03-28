@@ -2,7 +2,7 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: black;
-  background-color: grey;
+  background-color: white;
 }
 
 h1 {
@@ -14,7 +14,7 @@ a {
 }
 
 div.center_box {
-	width:500px;
+	width:800px;
 	margin:0px auto;
 	text-align:left;
 	padding:15px;
@@ -22,17 +22,51 @@ div.center_box {
 	background-color:#b7b7b7;
 }
 
-input[type=text], input[type=email] {
-    border-radius: 10px;
+div.display_entry {
+}
+
+div.display_entry_box {
+	width:800px;
+	margin:-16px;
+	text-align:left;
+	padding:15px;
+	border:1px solid #ffffff;
+	background-color:#C8C8C8;
+}
+
+div.display_entry_end {
+	width:800px;
+	margin:-16px;
+	padding: 5px 15px;
+	border:1px solid #ffffff;
+	background-color: white;
+}
+
+input[type=text],input[type=email] {
+    border-radius: 6px;
     width: 280px;
 }
 
 textarea{
-    border-radius: 10px;
+    border-radius: 6px;
     resize: none;
     width: 280px;
 }
 
+td {
+    vertical-align: top;
+	padding:3px;
+}
+
+td.tight {
+    vertical-align: top;
+	padding:1px;
+}
+
 td.td_header {
   color: #2003fd;
+}
+
+button {
+    border-radius: 6px;
 }

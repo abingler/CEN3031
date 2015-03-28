@@ -10,114 +10,113 @@
     </head>
     <body data-ng-controller="MainController as main" >
         <h1>Support Database</h1>
-        <br/>
+        <br>
         <div class="center_box">
             <div class="display_entry" data-ng-repeat="curSuggest in main.suggestionDB">
-                <strong>Entry:</strong> {{ $index }}
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 65%; vertical-align: middle;"><strong>Entry:</strong> {{ $index }}</td>
+                        <td class="tight" style="text-align:right" data-ng-show="main.isEditing($index)">
+                            <button type="button" data-ng-click="main.apply()">Apply</button>
+                        </td>
+                        <td class="tight" style="text-align:right" data-ng-show="!main.isEditing($index)">
+                            <button type="button" data-ng-click="main.edit($index)">Edit</button>
+                            <button type="button" data-ng-click="main.delete($index)">Delete</button>
+                            <button type="button" data-ng-click="main.moveUp($index)" data-ng-show="!$first">Move Up</button>
+                            <button type="button" data-ng-click="main.moveDown($index)" data-ng-show="!$last">Move Down</button>
+                        </td>
+                    </tr>
+                </table>
                 <br>
-                <strong>Keywords:</strong> {{ curSuggest.keywords }}
-                <br>
-                <strong>Suggestion:</strong> {{ curSuggest.suggestion }}
-                <br>
-                <strong>Platform:</strong> {{ curSuggest.platform }}
-                <br>
-                <strong>Game:</strong> {{ curSuggest.game }}
-                <br>
-                <br>
-            </div>
-            <!--<div class="notintro" data-ng-controller="TodoListController"> <!--Added by Andrew B
-                <form data-ng-submit="TodoListController.Update()">
-                    <input data-ng-model="TodoListController.keywords[0]" type="text" /> Keywords0 <br>
-                    <input data-ng-model="TodoListController.keywords[1]" type="text" /> Keywords1 <br>
-                    <input data-ng-model="TodoListController.keywords[2]" type="text" /> Keywords2 <br>
-                    <input data-ng-model="TodoListController.suggestion" type="text" /> Suggestion <br>
-                    <input data-ng-model="TodoListController.platform" type="text" /> Platform <br>
-                    <input type="submit" />
-                </form>
-            </div>-->
-            <div class="intro" data-ng-show="main.selected === 0 && false">
-                <p>
-                    Welcome to the admin console!
-                </p>
-                <ul>
-                    <li class="main_option"><a href data-ng-click="main.select(1)">I am having technical problems with the game</a></li>
-                    <li class="main_option"><a href data-ng-click="main.select(2)">I have a suggestion to make the game better!</a></li>
-                    <li class="main_option"><a href data-ng-click="main.select(3)">I'd like to request a refund for a purchased item</a></li>
-                </ul>
-            </div>
-            <div class="technical" data-ng-show="main.isSelected(1)" data-ng-controller="TechnicalController as tech" data-ng-init="tech.game = 'Auralux'">
-                <form novalidate data-ng-submit="tech.findSuggestions()" data-ng-show="!tech.shouldShowSendEmail() && !tech.shouldShowCongrats()">
-                    Ok, that's not cool! Please describe your problem here and we'll try to help you immediately:
-                    <br><br>
-                    <input data-ng-model="tech.problem" type="text" required />
-                    <br>
-                    <input type="submit" data-ng-show="tech.shouldShowSubmit()"/>
-                </form>
-                <!--<form data-ng-submit="tech.uploadToMongolab()">
-                    <input data-ng-model="tech.keywords[0]" type="text" /> Keywords0 <br>
-                    <input data-ng-model="tech.keywords[1]" type="text" /> Keywords1 <br>
-                    <input data-ng-model="tech.keywords[2]" type="text" /> Keywords2 <br>
-                    <input data-ng-model="tech.suggestion" type="text" /> Suggestion <br>
-                    <input data-ng-model="tech.platform" type="text" /> Platform <br>
-                    <input type="submit" />
-                </form>-->
-                <div data-ng-show="tech.shouldShowSuggestion()" data-ng-repeat="curSuggest in tech.suggestions">
-                    {{ curSuggest.suggestion }}
-                    <div data-ng-show="curSuggest.instructionLink != null">
-                        <br>
-                        <a target="_blank" data-ng-href="{{ curSuggest.instructionLink }}">Instructions</a>
-                    </div>
-                    <br>
-                    <div data-ng-show="curSuggest === tech.suggestions[tech.suggestions.length-1]">
-                        <br>Did that work?
-                        <a href data-ng-click="tech.foundSolution()">Yes</a>
-                        <a href data-ng-click="tech.nextSuggestion()">No</a>
-                    </div>
-                    <div data-ng-show="curSuggest !== tech.suggestions[tech.suggestions.length-1]">
-                        <br>Ok, how about this:
-                        <br><br>
-                    </div>
-                </div>
-                <div data-ng-show="tech.shouldShowSendEmail()">
-                    Ok, it looks like we are going to have to work on this a little more. Make sure your problem is very well explained in the box below, provide us with your email address and we will get back to you as soon as possible.
-                    <br><br>
-                    <form novalidate data-ng-submit="tech.sendEmail()">
-                        <table>
+                <div class="display_entry_box">
+                    <div data-ng-show="!main.isEditing($index)">
+                        <table style="width: 100%;">
                             <tr>
-                                <td class="td_header">Problem Description:</td>
-                            </tr>
-                            <tr>
+                                <td style="width: 20%;"><strong>Keywords:</strong></td>
                                 <td>
-                                    <textarea rows="6" data-ng-model="tech.problem" required>
-                                    </textarea>
+                                    <table>
+                                        <tr data-ng-repeat="keyword in curSuggest.keywords track by $index">
+                                            <td>{{ keyword }}</td>
+                                        </tr>
+                                    </table>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="td_header">Email:</td>
+                                <td><strong>Suggestion:</strong></td>
+                                <td>{{ curSuggest.suggestion }}</td>
                             </tr>
                             <tr>
+                                <td><strong>Instruction Link:</strong></td>
+                                <td><a target="_blank" data-ng-href="{{curSuggest.instructionLink}}"> {{ curSuggest.instructionLink }} </a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Platform:</strong></td>
+                                <td>{{ curSuggest.platform }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Game:</strong></td>
+                                <td>{{ curSuggest.game }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div data-ng-show="main.isEditing($index)">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 20%;">
+                                    <strong>Keywords:</strong> <button type="button" data-ng-click="main.addKeyword()">+</button>
+                                </td>
                                 <td>
-                                    <input data-ng-model="tech.email" type="email" required />
+                                    <table>
+                                        <tr data-ng-repeat="keyword in curSuggest.keywords track by $index">
+                                            <td><input type="text" data-ng-model="curSuggest.keywords[$index]"/> <button type="button" data-ng-click="main.deleteKeyword($index)">-</button></td>
+                                        </tr>
+                                    </table>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <br>
-                                    <input type="Submit"/>
+                                    <strong>Suggestion:</strong>
+                                </td>
+                                <td>
+                                    <textarea type="text" data-ng-model="curSuggest.suggestion" rows="4"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Instruction Link:</strong>
+                                </td>
+                                <td>
+                                    <input type="text" data-ng-model="curSuggest.instructionLink"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Platform:</strong>
+                                </td>
+                                <td>
+                                    <input type="text" data-ng-model="curSuggest.platform"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Game:</strong>
+                                </td>
+                                <td>
+                                    <input type="text" data-ng-model="curSuggest.game"/>
                                 </td>
                             </tr>
                         </table>
-                    </form>
-                </div>
-                <div data-ng-show="tech.shouldShowCongrats()">
-                    Awesome! We're glad that worked for you! Thanks for playing Auralux! Please feel free to contact us if you have any other problems or suggestions.
-                    <br><br>
-                    <a target="_blank" href="https://www.facebook.com/pages/War-Drum-Studios/127406327275082">War Drum Studios on Facebook</a>
-                    <br><br>
-                    <a target="_blank" href="https://twitter.com/wardrumstudios">War Drum Studios on Twitter</a>
+                    </div>
                     <br>
                 </div>
+                <div class="display_entry_end">
+                    <br>
+                </div>
+                <br>
             </div>
+            <br>
+            <button type="button" data-ng-click="main.addNew()">Add New Entry</button>
+            <button type="button" data-ng-click="main.saveChanges()">Save Changes</button>
         </div>
     </body>
 </html>
