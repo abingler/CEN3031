@@ -8,7 +8,7 @@
         <script type='text/javascript' src='/javascripts/vendor/angular-bootstrap/ui-bootstrap-tpls.js'></script>
         <script type='text/javascript' src='/javascripts/AdminModule.js'></script>
     </head>
-    <body data-ng-controller="MainController as main" >
+    <body data-ng-controller="MainController as main" data-ng-init="main.callDatabase()" >
         <h1>Support Database</h1>
         <br>
         <div class="center_box">

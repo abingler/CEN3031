@@ -5,13 +5,7 @@ var suggestionsSchema = require('../schemas/suggestions'); //Adding suggestions 
 //Added by Andrew
 exports.addSuggestions = function(req, res){
     
-//suggestionDB.forEach(
     for(suggest in suggestionDB){
-    //function(suggestion){
-       /* var store = {
-            suggestionGroup: suggestion
-
-        }; */
         
         var record = new suggestionsSchema(suggestionDB[suggest]);
         console.log(record);
@@ -30,15 +24,6 @@ exports.addSuggestions = function(req, res){
         console.log("worked");
     }
     
-   /* var record = new suggestionsSchema(//PUll in info from each);
-        record.save(function(err) {
-            if(err){
-                console.log(err);
-                res.status(500).json({status: 'failure'});
-            } else {
-                res.json({status: 'success'});
-            }
-        }); */
 }
 
 exports.getSuggestions = function(req, res){
@@ -54,6 +39,7 @@ exports.getSuggestions = function(req, res){
             res.status(500).json({status: 'failure'});
         } else {
             console.log(suggestion);
+            res.json({status: 'success'}, suggestion);
         }
     });  
     //console.log(suggestionsSchema.find());
@@ -65,7 +51,7 @@ exports.searchSuggestions = function(req, res){
      // we need to create a custom $where function using our query since we
      // do a specialized string search based on an array of possible keywords per entry
      var replacequote = req.params.keywords.toLowerCase().replace("\'", "\\\'");
-     console.log("This is the game" + req.params.game);
+     console.log("This is the game " + req.params.game);
      var func = new Function("return function(){ " +
                 "var query = '" + replacequote + "';" +
                 "for (keyword in this.keywords) {" +

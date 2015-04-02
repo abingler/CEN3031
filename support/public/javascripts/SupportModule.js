@@ -54,8 +54,9 @@
                 this.showError = true;
             }
             
-            $log.log("Looking for suggestions..."); //Likely need to call suggestionDB somewhere here
+            $log.log("Looking for suggestions...");
             $log.log(this);
+            $log.log("Found this");
             this.showError = false;
 
            this.pendingSuggestions = [];
