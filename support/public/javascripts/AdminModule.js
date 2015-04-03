@@ -1,6 +1,9 @@
+
 Array.prototype.move = function(from, to) {
     this.splice(to, 0, this.splice(from, 1)[0]);
 };
+
+
 
 (function() {
     var app = angular.module('AdminModule', ['ui.bootstrap']);
@@ -63,8 +66,20 @@ Array.prototype.move = function(from, to) {
         
         this.saveChanges = function() {
             // SAVE DATABASE HERE
+        
+        //Will Remove Suggestions  
+        $http.get('/removeSuggestions/');
+
+        /*This will add Suggestions with http post*/
+            for(suggest in this.suggestionDB){
+                $log.log(suggest);
+                $log.log(this.suggestionDB[suggest]);
+                $http.post('/push/' + this.suggestionDB[suggest].keywords + '/' + this.suggestionDB[suggest].suggestion + '/' + this.suggestionDB[suggest].instructionLink 
+                    + '/' +this.suggestionDB[suggest].platform + '/' + this.suggestionDB[suggest].game);
+            }
+
             $log.log("TODO : save to MongoDB");
-        }
+        } 
 
 
         //Database Functions
@@ -83,4 +98,6 @@ Array.prototype.move = function(from, to) {
     }]);
     
      var suggestionDB = [];
+
 })();
+

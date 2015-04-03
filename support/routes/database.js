@@ -23,7 +23,45 @@ exports.addSuggestions = function(req, res){
         //db.suggestionCollection.insert(store);
         console.log("worked");
     }
-    
+}
+
+/*exports.pushSuggestions = function(req, res){
+    var Admin = require('../public/javascripts/AdminModule');
+    var suggestionTemp = Admin.getInfo();
+
+    for(suggest in suggestionTemp){
+        
+        var record = new suggestionsSchema(suggestionTemp[suggest]);
+        console.log(record);
+        record.save(function(err) {
+            if(err){
+                console.log(err);
+                console.log("failure");
+                res.status(500).json({status: 'failure'});
+            } else {
+                res.json({status: 'success'});
+                console.log("success");
+            }
+        });
+        
+        //db.suggestionCollection.insert(store);
+        console.log("worked");
+    }
+} */
+
+//Remove Documents
+exports.removeSuggestions = function(req, res){
+    suggestionsSchema.remove()
+    .exec(function(err, suggestion){
+        if(err){
+            console.log(err);
+            res.status(500).json({status: 'failure'});
+        } else{
+            console.log(suggestion);
+            res.json({status: 'success'}, suggestion);
+        }
+    });
+    console.log("Suggestions Removed");
 }
 
 exports.getSuggestions = function(req, res){
@@ -46,6 +84,51 @@ exports.getSuggestions = function(req, res){
     console.log("working");
 };
 
+exports.push = function(req, res){
+    var platform = req.params.platform;
+    var keywords = req.params.keywords;
+    var suggestion = req.params.suggestion;
+    var instructionLink = req.params.instructionLink;
+    var game = req.params.game;
+
+    if(platform === "undefined" || platform == "null"){ //Check Strings for undefined or null
+        platform = null;
+    }
+
+    if(suggestion === "undefined" || platform == "null"){
+        suggestion = null;
+    }
+
+    if(instructionLink === "undefined" || platform == "null"){
+        instructionLink = null;
+    }
+
+    if(game === "undefined" || platform == "null"){
+        game = null;
+    }
+
+    var del = keywords.split(",");
+
+    var suggestiontemp = {
+        keywords: del,
+        platform: platform,
+        suggestion: suggestion,
+        instructionLink: instructionLink,
+        game: game
+
+    };
+
+
+    var record = new suggestionsSchema(suggestiontemp);
+    record.save(function(err){
+        if(err){
+            res.status(500).json({status: 'failure'});
+        }else{
+            res.json({status: 'success'});
+        }
+    });
+
+}
 
 exports.searchSuggestions = function(req, res){
      // we need to create a custom $where function using our query since we
