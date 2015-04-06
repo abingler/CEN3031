@@ -25,30 +25,6 @@ exports.addSuggestions = function(req, res){
     }
 }
 
-/*exports.pushSuggestions = function(req, res){
-    var Admin = require('../public/javascripts/AdminModule');
-    var suggestionTemp = Admin.getInfo();
-
-    for(suggest in suggestionTemp){
-        
-        var record = new suggestionsSchema(suggestionTemp[suggest]);
-        console.log(record);
-        record.save(function(err) {
-            if(err){
-                console.log(err);
-                console.log("failure");
-                res.status(500).json({status: 'failure'});
-            } else {
-                res.json({status: 'success'});
-                console.log("success");
-            }
-        });
-        
-        //db.suggestionCollection.insert(store);
-        console.log("worked");
-    }
-} */
-
 //Remove Documents
 exports.removeSuggestions = function(req, res){
     suggestionsSchema.remove()
@@ -85,48 +61,39 @@ exports.getSuggestions = function(req, res){
 };
 
 exports.push = function(req, res){
-    var platform = req.params.platform;
-    var keywords = req.params.keywords;
-    var suggestion = req.params.suggestion;
-    var instructionLink = req.params.instructionLink;
-    var game = req.params.game;
+    var platform = req.body.platform;
+    var keywords = req.body.keywords;
+    var suggestion = req.body.suggestion;
+    var instructionLink = req.body.instructionLink;
+    var game = req.body.game;
+    var empty = false;
+    //var del = keywords.split(",");
 
-    if(platform === "undefined" || platform == "null"){ //Check Strings for undefined or null
-        platform = null;
-    }
+    console.log(typeof platform);
 
-    if(suggestion === "undefined" || platform == "null"){
-        suggestion = null;
-    }
+    if((typeof platform === "undefined") && (typeof suggestion === "undefined" )
+        && (typeof instructionLink === "undefined") && (typeof game === "undefined")){
+        empty = true;
+    } //Handle weird edge case
 
-    if(instructionLink === "undefined" || platform == "null"){
-        instructionLink = null;
-    }
-
-    if(game === "undefined" || platform == "null"){
-        game = null;
-    }
-
-    var del = keywords.split(",");
-
-    var suggestiontemp = {
-        keywords: del,
+    var suggestiontemp = { 
+        keywords: keywords,
         platform: platform,
         suggestion: suggestion,
         instructionLink: instructionLink,
         game: game
 
     };
-
-
-    var record = new suggestionsSchema(suggestiontemp);
-    record.save(function(err){
-        if(err){
-            res.status(500).json({status: 'failure'});
-        }else{
-            res.json({status: 'success'});
-        }
-    });
+    if(empty == false){
+        var record = new suggestionsSchema(suggestiontemp);
+        record.save(function(err){
+            if(err){
+                res.status(500).json({status: 'failure'});
+            }else{
+                res.json({status: 'success'});
+            }
+        });
+    }
 
 }
 

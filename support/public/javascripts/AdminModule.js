@@ -70,15 +70,17 @@ Array.prototype.move = function(from, to) {
         //Will Remove Suggestions  
         $http.get('/removeSuggestions/');
 
-        /*This will add Suggestions with http post*/
+        $log.log(this.suggestionDB);
+
+        /*This will add updated Suggestions with http post*/
             for(suggest in this.suggestionDB){
                 $log.log(suggest);
                 $log.log(this.suggestionDB[suggest]);
-                $http.post('/push/' + this.suggestionDB[suggest].keywords + '/' + this.suggestionDB[suggest].suggestion + '/' + this.suggestionDB[suggest].instructionLink 
-                    + '/' +this.suggestionDB[suggest].platform + '/' + this.suggestionDB[suggest].game);
+                $http.post('/push', {keywords: this.suggestionDB[suggest].keywords, suggestion: this.suggestionDB[suggest].suggestion, 
+                    instructionLink: this.suggestionDB[suggest].instructionLink, platform: this.suggestionDB[suggest].platform, 
+                    game: this.suggestionDB[suggest].game}); //Could probably just pass the object, but it works so nah
             }
 
-            $log.log("TODO : save to MongoDB");
         } 
 
 
