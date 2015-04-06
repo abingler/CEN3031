@@ -73,5 +73,5 @@ app.post('/push/:keywords/:suggestion/:instructionLink/:platform/:game', databas
 app.get('/removeSuggestions', database.removeSuggestions);
 app.get('/addSuggestions', database.addSuggestions);
 app.get('/getSuggestions', database.getSuggestions);
-app.get('/search/:keywords/:game', database.searchSuggestions);
+app.post('/search', database.searchSuggestions);
 
