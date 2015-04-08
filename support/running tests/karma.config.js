@@ -15,6 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+        '../public/javascripts/vendor/angular/angular.js',
+        '../public/javascripts/SupportModule.js',
         'Testsuit1.js'
     ],
 
