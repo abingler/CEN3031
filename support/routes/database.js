@@ -1,4 +1,5 @@
 var suggestionsSchema = require('../schemas/suggestions'); //Adding suggestions schema for mongoose
+var mandrill = require('mandrill-api/mandrill');
 
 /*Contains GET and PUT requests for database */
 
@@ -97,6 +98,78 @@ exports.push = function(req, res){
 
 }
 
+
+var sendEmail = function(subject, text) {
+    var mandrill_client = new mandrill.Mandrill('GTbOxjh7BPuJpiDjFQryFQ');
+    
+    var message = {
+        "html": "",
+        "text": text,
+        "subject": subject,
+        "from_email": "support@wardrumstudios.com",
+        "from_name": "War Drum Support Page",
+        "to": [{
+                "email": "mtmole@ufl.edu",
+                "name": "Thomas Williamson",
+                "type": "to"
+            }],
+        "headers": {
+            "Reply-To": "no-reply@wardrumstudios.com"
+        },
+        "important": false,
+        "track_opens": null,
+        "track_clicks": null,
+        "auto_text": null,
+        "auto_html": null,
+        "inline_css": null,
+        "url_strip_qs": null,
+        "preserve_recipients": null,
+        "view_content_link": null,
+        "tracking_domain": null,
+        "signing_domain": null,
+        "return_path_domain": null,
+        "merge": true,
+        "merge_language": "mailchimp",
+        "global_merge_vars": [{
+                "name": "merge1",
+                "content": "merge1 content"
+            }],
+        "merge_vars": [{
+                "rcpt": "mtmole@ufl.edu",
+                "vars": [{
+                        "name": "merge2",
+                        "content": "merge2 content"
+                    }]
+            }],
+        "tags": [
+            "password-resets"
+        ],
+        "recipient_metadata": [{
+                "rcpt": "mtmole@ufl.edu",
+                "values": {}
+            }],
+        "attachments": [],
+        "images": []
+        };
+        var async = false;
+        var ip_pool = "Main Pool";
+        mandrill_client.messages.send({"message": message, "async": async, "ip_pool": ip_pool}, function(result) {
+        console.log(result);
+        /*
+        [{
+                "email": "recipient.email@example.com",
+                "status": "sent",
+                "reject_reason": "hard-bounce",
+                "_id": "abc123abc123abc123abc123abc123"
+            }]
+        */
+        }, function(e) {
+        // Mandrill returns the error as an object with name and message keys
+        console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+        // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+        });
+}
+
 exports.searchSuggestions = function(req, res) {
      // we need to create a custom $where function using our query since we
      // do a specialized string search based on an array of possible keywords per entry
@@ -114,6 +187,13 @@ exports.searchSuggestions = function(req, res) {
         "return false;" +
          "};")();
     
+    if (replacequote === "test email") {
+        console.log("Testing email.");
+        sendEmail("support test email", "this is a test email to make sure the support system supports emails");
+    } else {
+        console.log("Not testing email.");
+    }
+    
      suggestionsSchema.find({$where: func})
     .exec(function(err, suggestion) {
         if(err){
@@ -127,7 +207,6 @@ exports.searchSuggestions = function(req, res) {
     
     console.log("working");
 };
-
 
 
      var suggestionDB = [

@@ -15,8 +15,6 @@ var express = require('express')
 
 var app = express();
 
-
-
 //var db = Mongoose.createConnection('mongodb://todouser:todopassword@localhost/tododb'); //This is the old connection to local host
 
 mongoose.connect('mongodb://todouser:todopassword@ds045031.mongolab.com:45031/tododb');
