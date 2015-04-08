@@ -5,3 +5,21 @@ describe("A suite", function() {
   });
 });
 
+describe("controller tests", function() {
+	beforeEach(module('SupportModule'));
+
+	describe("MainController tests", function() {
+		it('should ....', inject(function($controller) {
+		      //spec body
+		      var MainController = $controller('MainController');
+		      expect(MainController).toBeDefined();
+		}));
+	});
+	describe("TechnicalController tests", function() {
+		it('should ....', inject(function($controller) {
+		      //spec body
+		      var TechnicalController = $controller('TechnicalController');
+		      expect(TechnicalController).toBeDefined();
+		}));
+	});
+});
