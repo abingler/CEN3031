@@ -24,6 +24,7 @@
         this.showSendEmail = false;
         this.showError = false;
         this.showCongrats = false;
+        this.showWillRespond = false;
         this.game = "default";
         
 //        this.uploadToMongolab = function(req, res) {
@@ -42,8 +43,12 @@
             return this.showCongrats;
         }
         
+        this.shouldShowWillRespond = function() {
+            return this.showWillRespond;
+        }
+        
         this.shouldShowSubmit = function() {
-            return !this.showSuggestion && !this.showSendEmail && !this.showCongrats;
+            return !this.showSuggestion && !this.showSendEmail && !this.showCongrats && !this.showWillRespond;
         }
         
         this.findSuggestions = function() {
@@ -109,7 +114,11 @@
         }
         
         this.sendEmail = function() {
+           $http.post('/techemail', {problem: this.problem, game: this.game, email: this.email}).then(function(data) {
+           });
             
+           this.showWillRespond = true;
+           this.showSendEmail = false;
         }
     }]);
     

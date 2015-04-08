@@ -71,4 +71,5 @@ app.get('/removeSuggestions', database.removeSuggestions);
 app.get('/addSuggestions', database.addSuggestions);
 app.get('/getSuggestions', database.getSuggestions);
 app.post('/search', database.searchSuggestions);
+app.post('/techemail', database.emailProblem);
 

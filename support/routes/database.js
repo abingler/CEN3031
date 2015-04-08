@@ -187,13 +187,6 @@ exports.searchSuggestions = function(req, res) {
         "return false;" +
          "};")();
     
-    if (replacequote === "test email") {
-        console.log("Testing email.");
-        sendEmail("support test email", "this is a test email to make sure the support system supports emails");
-    } else {
-        console.log("Not testing email.");
-    }
-    
      suggestionsSchema.find({$where: func})
     .exec(function(err, suggestion) {
         if(err){
@@ -206,6 +199,15 @@ exports.searchSuggestions = function(req, res) {
     });  
     
     console.log("working");
+};
+
+exports.emailProblem = function(req, res) {
+    console.log("Sending email");
+    
+    var problemBody = "Automated support email\n\nEmail: " + req.body.email + "\nGame: " + req.body.game + "\nProblem: " + req.body.problem + "\n\n";
+    sendEmail("Support for " + req.body.game, problemBody);
+    
+    console.log("Done.");
 };
 
 

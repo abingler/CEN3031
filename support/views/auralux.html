@@ -38,7 +38,7 @@
                 </ul>
             </div>
             <div class="technical" data-ng-show="main.isSelected(1)" data-ng-controller="TechnicalController as tech" data-ng-init="tech.game = 'Auralux'">
-                <form novalidate data-ng-submit="tech.findSuggestions()" data-ng-show="!tech.shouldShowSendEmail() && !tech.shouldShowCongrats()">
+                <form novalidate data-ng-submit="tech.findSuggestions()" data-ng-show="!tech.shouldShowSendEmail() && !tech.shouldShowCongrats() && !tech.shouldShowWillRespond()">
                     Ok, that's not cool! Please describe your problem here and we'll try to help you immediately:
                     <br><br>
                     <input data-ng-model="tech.problem" type="text" required />
@@ -103,6 +103,14 @@
                 </div>
                 <div data-ng-show="tech.shouldShowCongrats()">
                     Awesome! We're glad that worked for you! Thanks for playing Auralux! Please feel free to contact us if you have any other problems or suggestions.
+                    <br><br>
+                    <a target="_blank" href="https://www.facebook.com/pages/War-Drum-Studios/127406327275082">War Drum Studios on Facebook</a>
+                    <br><br>
+                    <a target="_blank" href="https://twitter.com/wardrumstudios">War Drum Studios on Twitter</a>
+                    <br>
+                </div>
+                <div data-ng-show="tech.shouldShowWillRespond()">
+                    Ok, we've received your problem and will respond to you soon! Please make sure your email will not filter "support@wardrumstudios.com" into your spam folder. You can also contact us via social media:
                     <br><br>
                     <a target="_blank" href="https://www.facebook.com/pages/War-Drum-Studios/127406327275082">War Drum Studios on Facebook</a>
                     <br><br>
