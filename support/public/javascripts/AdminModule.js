@@ -13,7 +13,7 @@ Array.prototype.move = function(from, to) {
         
         // LOAD DATABASE HERE
         this.suggestionDB = suggestionDB;
-        this.editing = 2;
+        this.editing = -1;
         
         this.select = function(withSelect) {
             this.selected = withSelect;
