@@ -57,6 +57,14 @@
                                 <td><strong>Game:</strong></td>
                                 <td>{{ curSuggest.game }}</td>
                             </tr>
+                            <tr>
+                                <td><strong>Views:</strong></td>
+                                <td>{{ curSuggest.views }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Worked:</strong></td>
+                                <td>{{ curSuggest.worked }}</td>
+                            </tr>
                         </table>
                     </div>
                     <div data-ng-show="main.isEditing($index)">
@@ -103,6 +111,22 @@
                                 </td>
                                 <td>
                                     <input type="text" data-ng-model="curSuggest.game"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Views:</strong>
+                                </td>
+                                <td>
+                                    <input type="text" data-ng-model="curSuggest.views"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Worked:</strong>
+                                </td>
+                                <td>
+                                    <input type="text" data-ng-model="curSuggest.worked"/>
                                 </td>
                             </tr>
                         </table>

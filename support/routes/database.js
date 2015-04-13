@@ -67,6 +67,8 @@ exports.push = function(req, res){
     var suggestion = req.body.suggestion;
     var instructionLink = req.body.instructionLink;
     var game = req.body.game;
+    var views = req.body.views;
+    var worked = req.body.worked;
     var empty = false;
     //var del = keywords.split(",");
 
@@ -77,12 +79,22 @@ exports.push = function(req, res){
         empty = true;
     } //Handle weird edge case
 
+    if((typeof worked === "undefined") || (worked === null)){
+        worked = 0;
+    }
+
+    if((typeof views === "undefined") || (views === null)){
+        views = 0;
+    }
+
     var suggestiontemp = { 
         keywords: keywords,
         platform: platform,
         suggestion: suggestion,
         instructionLink: instructionLink,
-        game: game
+        game: game,
+        views: views,
+        worked: worked
 
     };
     if(empty == false){
@@ -214,7 +226,9 @@ exports.emailProblem = function(req, res) {
      var suggestionDB = [
         {
             keywords: ["freeze", "black", "not respond"],
-            suggestion: "Rebooting your device may help. To reboot it, turn it completely off and back on again."
+            suggestion: "Rebooting your device may help. To reboot it, turn it completely off and back on again.",
+            views: 0,
+            worked: 0
         },
         {
             keywords: ["which game", "what game"],

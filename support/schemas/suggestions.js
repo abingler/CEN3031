@@ -7,7 +7,9 @@ module.exports = mongoose.model('suggestionCollection2', {
         platform: String,
         game: String,
         suggestion: String,
-        instructionLink: String 
+        instructionLink: String,
+        views: Number,
+        worked: Number
     //} 
 });
     
