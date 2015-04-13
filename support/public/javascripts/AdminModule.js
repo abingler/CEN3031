@@ -78,7 +78,8 @@ Array.prototype.move = function(from, to) {
                 $log.log(this.suggestionDB[suggest]);
                 $http.post('/push', {keywords: this.suggestionDB[suggest].keywords, suggestion: this.suggestionDB[suggest].suggestion, 
                     instructionLink: this.suggestionDB[suggest].instructionLink, platform: this.suggestionDB[suggest].platform, 
-                    game: this.suggestionDB[suggest].game}); //Could probably just pass the object, but it works so nah
+                    game: this.suggestionDB[suggest].game, views: this.suggestionDB[suggest].views, 
+                    solved: this.suggestionDB[suggest]. solved}); //Could probably just pass the object, but it works so nah
             }
 
         } 

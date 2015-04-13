@@ -67,6 +67,8 @@ http.createServer(app).listen(app.get('port'), function(){
 
 //Database Stuff
 app.post('/push', database.push);
+app.post('/views', database.updateViews);
+app.post('/solved', database.updateSolved);
 app.get('/removeSuggestions', database.removeSuggestions);
 app.get('/addSuggestions', database.addSuggestions);
 app.get('/getSuggestions', database.getSuggestions);

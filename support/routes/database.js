@@ -68,7 +68,7 @@ exports.push = function(req, res){
     var instructionLink = req.body.instructionLink;
     var game = req.body.game;
     var views = req.body.views;
-    var worked = req.body.worked;
+    var solved = req.body.solved;
     var empty = false;
     //var del = keywords.split(",");
 
@@ -79,8 +79,8 @@ exports.push = function(req, res){
         empty = true;
     } //Handle weird edge case
 
-    if((typeof worked === "undefined") || (worked === null)){
-        worked = 0;
+    if((typeof solved === "undefined") || (solved === null)){
+        solved = 0;
     }
 
     if((typeof views === "undefined") || (views === null)){
@@ -94,7 +94,7 @@ exports.push = function(req, res){
         instructionLink: instructionLink,
         game: game,
         views: views,
-        worked: worked
+        solved: solved
 
     };
     if(empty == false){
@@ -108,6 +108,46 @@ exports.push = function(req, res){
         });
     }
 
+}
+
+exports.updateViews = function(req, res){
+    //First need to find the proper array
+    //Second need to update the views of the proper array
+    console.log("updateViews found: " );
+    console.log(req.body);
+    var views = req.body.views;
+    var id = req.body._id;
+
+    views++; //Update views
+
+    suggestionsSchema.findByIdAndUpdate(id, { $set: { views: views }}, function (err) {
+      if (err){
+            res.json({status: 'failure'});
+      }
+      else{ 
+        res.json({status: 'success'});
+        console.log("Views updated");
+        }
+    }); 
+}
+
+exports.updateSolved = function(req, res){
+    console.log("updateSolved found: ");
+    console.log(req.body);
+    var solved = req.body.solved;
+    var id = req.body._id;
+
+    solved++;
+
+    suggestionsSchema.findByIdAndUpdate(id, { $set: { solved: solved}}, function (err){
+        if(err){
+            res.json({status: 'failure'});
+        }
+        else{
+            res.json({status: 'success'});
+            console.log("Solved updated");
+        }
+    });
 }
 
 
@@ -228,43 +268,59 @@ exports.emailProblem = function(req, res) {
             keywords: ["freeze", "black", "not respond"],
             suggestion: "Rebooting your device may help. To reboot it, turn it completely off and back on again.",
             views: 0,
-            worked: 0
+            solved: 0
         },
         {
             keywords: ["which game", "what game"],
             suggestion: "You are playing Auralux",
-            game: "Auralux"
+            game: "Auralux",
+            views: 0,
+            solved: 0
         },
         {
             keywords: ["which game", "what game"],
             suggestion: "You are playing turtle tumble",
-            game: "turtle tumble"
+            game: "turtle tumble",
+            views: 0,
+            solved: 0
         },
         {
             keywords: ["freeze", "black", "not respond"],
-            suggestion: "Make sure your operating system is completely up to date. Check for updates under Settings, then System Information."
+            suggestion: "Make sure your operating system is completely up to date. Check for updates under Settings, then System Information.",
+            views: 0,
+            solved: 0
         },
         {
             keywords: ["lost level", "lost purchase", "no level"],
             platform: "Android",
             suggestion: "Sometimes clearing your Google Play cache can help with that, particularly on devices with multiple user accounts. Click the link below for instructions on how to do that.",
-            instructionLink: "https://support.google.com/googleplay/troubleshooter/4592924?hl=en#ts=4592730"
+            instructionLink: "https://support.google.com/googleplay/troubleshooter/4592924?hl=en#ts=4592730",
+            views: 0,
+            solved: 0
         },
         {
             keywords: ["lost level", "lost purchase", "no level"],
             platform: "iOS",
-            suggestion: "Make sure you are currently signed in to your Apple ID on your device. Check other apps where you have made purchases or go into the App Store on your device and make see if you are prompted to log in."
+            suggestion: "Make sure you are currently signed in to your Apple ID on your device. Check other apps where you have made purchases or go into the App Store on your device and make see if you are prompted to log in.",
+            views: 0,
+            solved: 0
         },
         {
             keywords: ["too slow", "speed"],
             suggestion: "This game has great music and pacing for a slow, ethereal experience. If you want something more intense, purchase speed mode! Sound good?",
+            views: 0,
+            solved: 0
         },
         { 
             keywords: ["no sound", "no music", "can't hear"],
-            suggestion: "Try checking the settings dialog from the main menu (select 'Settings' in the lower right corner) for muted volume levels. You can toggle the music and sound levels there."
+            suggestion: "Try checking the settings dialog from the main menu (select 'Settings' in the lower right corner) for muted volume levels. You can toggle the music and sound levels there.",
+            views: 0,
+            solved: 0
         },
         {
             keywords: ["no sound", "no music", "can't hear"],
-            suggestion: "To make sure it's a problem with the game, check to make sure other apps and games make sounds with no problem. If they don't, please check for systemic problems such as having your phone on silent, or unwanted headphones in your headphone jack."
+            suggestion: "To make sure it's a problem with the game, check to make sure other apps and games make sounds with no problem. If they don't, please check for systemic problems such as having your phone on silent, or unwanted headphones in your headphone jack.",
+            views: 0,
+            solved: 0
         }
     ];

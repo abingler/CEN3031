@@ -9,7 +9,7 @@ module.exports = mongoose.model('suggestionCollection2', {
         suggestion: String,
         instructionLink: String,
         views: Number,
-        worked: Number
+        solved: Number
     //} 
 });
     
