@@ -24,7 +24,9 @@
         this.showSendEmail = false;
         this.showError = false;
         this.showCongrats = false;
+        this.showWillRespond = false;
         this.game = "default";
+        this.count = 0;
         
 //        this.uploadToMongolab = function(req, res) {
 //            res.jsonp(new schema(req.body));
@@ -42,8 +44,12 @@
             return this.showCongrats;
         }
         
+        this.shouldShowWillRespond = function() {
+            return this.showWillRespond;
+        }
+        
         this.shouldShowSubmit = function() {
-            return !this.showSuggestion && !this.showSendEmail && !this.showCongrats;
+            return !this.showSuggestion && !this.showSendEmail && !this.showCongrats && !this.showWillRespond;
         }
         
         this.findSuggestions = function() {
@@ -56,6 +62,7 @@
             
             $log.log("Looking for suggestions...");
             $log.log(this);
+
             $log.log("Found this");
             this.showError = false;
 
@@ -65,9 +72,10 @@
 //           $http.get('/search/' + this.problem.toLowerCase() + '/' + this.game).then(function(data) {
              $log.log(data.data);
              view.pendingSuggestions = data.data;
-             view.nextSuggestion();
+             view.nextSuggestion(); //Calls nextSuggestion right away
           
            });
+
             $log.log(this.pendingSuggestions);
             //old code that connected to array at the bottom
             //$location.path('/search/' + this.problem);
@@ -91,8 +99,13 @@
         
         this.nextSuggestion = function() {
              $log.log("Made it to nextsuggestion");
-            if (this.pendingSuggestions.length) {
-                this.suggestions.push(this.pendingSuggestions[0]);
+            if (this.pendingSuggestions.length) { //If we have any more suggestions
+                this.suggestions.push(this.pendingSuggestions[0]); //Push 1st pending suggestion onto this.suggestions
+                //HERE Search for this.suggestions and update views
+                $log.log("suggestions: ");
+                $log.log(this.suggestions);
+                this.updateViews();
+                this.count++;
                 this.pendingSuggestions.shift();
                 this.showSuggestion = true;
                 this.showSendEmail = false;
@@ -100,16 +113,30 @@
                 this.suggestions = [];
                 this.showSendEmail = true;
                 this.showSuggestion = false;
+                this.count = 0;
             }
+        }
+
+        this.updateViews = function(){
+                $http.post('/views', this.suggestions[this.count]); 
+        }
+
+        this.updateSolved = function(){
+            $http.post('/solved', this.suggestions[this.count-1]);
         }
         
         this.foundSolution = function() {
+            this.updateSolved();
             this.showCongrats = true;
             this.showSuggestion = false;
         }
         
         this.sendEmail = function() {
+           $http.post('/techemail', {problem: this.problem, game: this.game, email: this.email}).then(function(data) {
+           });
             
+           this.showWillRespond = true;
+           this.showSendEmail = false;
         }
     }]);
     
