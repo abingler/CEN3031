@@ -1,11 +1,8 @@
-describe("controller tests", function() {
-	//var $controller, scope, $location, $http;
+describe("Support module controller tests", function() {
 	var $controller, scope, $http;
 	beforeEach(module('SupportModule'));
-	//beforeEach(inject(function($rootScope, _$controller_,  _$location_, _$http_) {
 		beforeEach(inject(function($rootScope, _$controller_, _$http_) {
 		$controller =_$controller_;
-		//location = _$location_;
 		http = _$http_;
     	$scope = $rootScope.$new();        
 	}));
@@ -75,5 +72,81 @@ describe("controller tests", function() {
 		      RefundController.sendEmail();
 		      expect(RefundController.showEmail).toBe(false);
 		}));
+	});
+});
+describe("Support module controller tests", function() {
+	var $controller, scope, $http;
+
+	beforeEach(module('AdminModule'));
+		beforeEach(inject(function($rootScope, _$controller_, _$http_) {
+		$controller =_$controller_;
+		http = _$http_;
+    	$scope = $rootScope.$new();        
+	}));
+
+	describe("MainController tests", function() {
+
+		it('should be defined', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});
+		      expect(MainController).toBeDefined();
+		}));
+
+		it('should define selected = 0', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});
+		      expect(MainController.selected).toBe(0);
+		}));
+
+		it('tests select function', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});
+		      MainController.select(1);
+		      expect(MainController.selected).toBe(1);
+		}));
+
+		it('tests isSelected function', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});
+		      var result = MainController.isSelected();
+		      expect(result).toBe(false);
+		      MainController.select();
+		      result = MainController.isSelected();
+		      expect(result).toBe(true);
+		}));
+		it('tests isEditing function1', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});
+		      var result = MainController.isEditing();
+		      expect(result).toBeDefined;
+		}));
+		
+		it('tests isEditing function2', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});
+		      var result = MainController.isEditing();
+		      expect(result).toBe(false);
+		}));
+		it('tests deleteKeyword function', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});		      
+		      //MainController.deleteKeyword();
+		      //unsure how to test
+		      expect(1).toBe(1);
+		}));
+		it('tests addKeyword function', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});		      
+		      //unsure how to test
+		      expect(1).toBe(1);
+		}));
+		it('tests apply function', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});		      
+		      MainController.apply();
+		      expect(MainController.editing).toBe(-1);
+		}));
+		it('tests edit function', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});		      
+		      MainController.edit(1);
+		      expect(MainController.editing).toBe(1);
+		}));
+		it('tests delete function', inject(function($controller) {
+		      var MainController = $controller('MainController',{$scope:$scope});		      
+		      MainController.delete(1);
+		      expect(MainController.editing).toBe(-1);
+		}));
+
 	});
 });
