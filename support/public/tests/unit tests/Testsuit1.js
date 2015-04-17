@@ -1,9 +1,12 @@
 describe("controller tests", function() {
-	var $controller, scope, $location;
+	//var $controller, scope, $location, $http;
+	var $controller, scope, $http;
 	beforeEach(module('SupportModule'));
-	beforeEach(inject(function($rootScope, _$controller_,  _$location_) {
+	//beforeEach(inject(function($rootScope, _$controller_,  _$location_, _$http_) {
+		beforeEach(inject(function($rootScope, _$controller_, _$http_) {
 		$controller =_$controller_;
-		location = _$location_;
+		//location = _$location_;
+		http = _$http_;
     	$scope = $rootScope.$new();        
 	}));
 
@@ -35,7 +38,6 @@ describe("controller tests", function() {
 		}));
 
 	});
-
 	describe("RefundController tests", function() {
 
 		it('should be defined', inject(function($controller) {
@@ -73,6 +75,5 @@ describe("controller tests", function() {
 		      RefundController.sendEmail();
 		      expect(RefundController.showEmail).toBe(false);
 		}));
-		
 	});
 });
