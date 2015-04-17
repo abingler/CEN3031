@@ -15,6 +15,42 @@
         }
     });
     
+    app.controller('RefundController', ['$log', '$location', '$scope', '$http', '$timeout', function($log, $location, $scope, $http, $timeout) {
+        this.message = "";
+        this.email = "";
+        this.showEmail = true;
+        this.game = "";
+        
+        this.shouldShowSendEmail = function() {
+            return this.showEmail;
+        }
+        
+        this.sendEmail = function() {
+           $http.post('/refundemail', {message: this.message, game: this.game, email: this.email}).then(function(data) {
+           });
+            
+           this.showEmail = false;
+        }
+    }]);
+    
+    app.controller('SuggestController', ['$log', '$location', '$scope', '$http', '$timeout', function($log, $location, $scope, $http, $timeout) {
+        this.message = "";
+        this.email = "";
+        this.showEmail = true;
+        this.game = "";
+        
+        this.shouldShowSendEmail = function() {
+            return this.showEmail;
+        }
+        
+        this.sendEmail = function() {
+           $http.post('/suggestemail', {message: this.message, game: this.game, email: this.email}).then(function(data) {
+           });
+            
+           this.showEmail = false;
+        }
+    }]);
+    
     app.controller('TechnicalController', ['$log', '$location', '$scope', '$http', '$timeout', function($log, $location, $scope, $http, $timeout) {
         this.problem = "";
         this.error = "";

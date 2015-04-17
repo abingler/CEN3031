@@ -55,11 +55,6 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index(Todo));
 app.get('/*.html', routes.index(Todo));
 app.get('/users', user.list);
-app.get('/todos.json', routes.get(Todo));
-
-app.put('/todo/:id.json', routes.update(Todo));
-
-app.post('/todo.json', routes.addTodo(Todo));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
@@ -69,8 +64,13 @@ http.createServer(app).listen(app.get('port'), function(){
 
 //Database Stuff
 app.post('/push', database.push);
+app.post('/views', database.updateViews);
+app.post('/solved', database.updateSolved);
 app.get('/removeSuggestions', database.removeSuggestions);
 app.get('/addSuggestions', database.addSuggestions);
 app.get('/getSuggestions', database.getSuggestions);
 app.post('/search', database.searchSuggestions);
+app.post('/techemail', database.emailProblem);
+app.post('/refundemail', database.emailRefund);
+app.post('/suggestemail', database.emailSuggestion);
 

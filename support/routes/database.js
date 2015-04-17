@@ -232,7 +232,7 @@ exports.searchSuggestions = function(req, res) {
                 "for (keyword in this.keywords) {" +
                 "    var curWord = this.keywords[keyword];" +
                 "    if (query.indexOf(curWord) > -1) {" +
-                         "if (this.hasOwnProperty('game') && this.game !== \'" + req.params.game + "\') continue;" + 
+                         "if (this.hasOwnProperty('game') && this.game !== \'" + req.body.game + "\') continue;" + 
                 "        return true;" +
                 "    }" +
                 "}" +
@@ -257,6 +257,24 @@ exports.emailProblem = function(req, res) {
     console.log("Sending email");
     
     var problemBody = "Automated support email\n\nEmail: " + req.body.email + "\nGame: " + req.body.game + "\nProblem: " + req.body.problem + "\n\n";
+    sendEmail("Support for " + req.body.game, problemBody);
+    
+    console.log("Done.");
+};
+
+exports.emailRefund = function(req, res) {
+    console.log("Sending refund email");
+    
+    var problemBody = "Automated refund email\n\nEmail: " + req.body.email + "\nGame: " + req.body.game + "\nMessage: " + req.body.message + "\n\n";
+    sendEmail("Support for " + req.body.game, problemBody);
+    
+    console.log("Done.");
+};
+
+exports.emailSuggestion = function(req, res) {
+    console.log("Sending suggestion email");
+    
+    var problemBody = "Automated suggestion email\n\nEmail: " + req.body.email + "\nGame: " + req.body.game + "\nMessage: " + req.body.message + "\n\n";
     sendEmail("Support for " + req.body.game, problemBody);
     
     console.log("Done.");

@@ -118,21 +118,95 @@
                     <br>
                 </div>
             </div>
-            <div class="suggestion" data-ng-show="main.isSelected(2)">
-                <p>
-                    Great! Please send us an <a href="mailto:support@wardrumstudios.com?subject=Auralux Suggestion">email</a>. We are always eager to hear about new ideas and improvements for our games!
-                </p>
+            <div class="suggestion" data-ng-show="main.isSelected(2)" data-ng-controller="SuggestController as suggest" data-ng-init="suggest.game = 'Auralux'">
+                <div data-ng-show="suggest.shouldShowSendEmail()">
+                    <p>
+                        Great! Please send us your suggestion below. We are always eager to hear about new ideas and improvements for our games!
+                    </p>
+                    <br><br>
+                    <form novalidate data-ng-submit="suggest.sendEmail()">
+                        <table>
+                            <tr>
+                                <td class="td_header">Suggestion Description:</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea rows="6" data-ng-model="suggest.message" required>
+                                    </textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_header">Your Email:</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input data-ng-model="suggest.email" type="email" required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                    <input type="Submit"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div data-ng-show="!suggest.shouldShowSendEmail()">
+                    We've received your suggestion and will get back to you at {{ suggest.email }} as soon as possible! Please make sure your email will not filter "support@wardrumstudios.com" into your spam folder. You can also contact us via social media:
+                    <br><br>
+                    <a target="_blank" href="https://www.facebook.com/pages/War-Drum-Studios/127406327275082">War Drum Studios on Facebook</a>
+                    <br><br>
+                    <a target="_blank" href="https://twitter.com/wardrumstudios">War Drum Studios on Twitter</a>
+                </div>
             </div>
                 
-            <div class="refund" data-ng-show="main.isSelected(3)">
-                <p>
-                    Ok, please send us an <a href="mailto:support@wardrumstudios.com?subject=Auralux Refund">email</a> with the details about what you need to be refunded and why. Please keep in mind we have a few policies regarding refunds for Auralux:
-                </p>
-                <ul>
-                    <li>Refunds are only provided for purchases within the last 14 days</li>
-                    <li>We can only cancel or refund orders through Apple or Google themselves, we cannot directly refund your account</li>
-                    <li>Sometimes your purchases may not work for something easily fixable! For instance, try <a href="https://support.google.com/googleplay/troubleshooter/4592924?hl=en#ts=4592730">clearing your Google Play cache.</a></li>
-                </ul>
+            <div class="refund" data-ng-show="main.isSelected(3)" data-ng-controller="RefundController as refund" data-ng-init="refund.game = 'Auralux'">
+                <div data-ng-show="refund.shouldShowSendEmail()">
+                    <p>
+                        Ok, please send us a message below with the details about what you need to be refunded and why. Please keep in mind we have a few policies regarding refunds for {{ refund.game }}:
+                    </p>
+                    <ul>
+                        <li>Refunds are only provided for purchases within the last 14 days</li>
+                        <li>We can only cancel or refund orders through Apple or Google themselves, we cannot directly refund your account</li>
+                        <li>Sometimes your purchases may not work for something easily fixable! For instance, try <a href="https://support.google.com/googleplay/troubleshooter/4592924?hl=en#ts=4592730">clearing your Google Play cache.</a></li>
+                    </ul>
+                    <br><br>
+                    <form novalidate data-ng-submit="refund.sendEmail()">
+                        <table>
+                            <tr>
+                                <td class="td_header">Refund Details: (what did you buy, and why are you requesting a refund)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea rows="6" data-ng-model="refund.message" required>
+                                    </textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_header">Your Email: (please use the email linked with your purchasing account)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input data-ng-model="refund.email" type="email" required />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                    <input type="Submit"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div data-ng-show="!refund.shouldShowSendEmail()">
+                    We've received your refund request and will get back to you at {{ refund.email }} as soon as possible! Please make sure your email will not filter "support@wardrumstudios.com" into your spam folder. You can also contact us via social media:
+                    <br><br>
+                    <a target="_blank" href="https://www.facebook.com/pages/War-Drum-Studios/127406327275082">War Drum Studios on Facebook</a>
+                    <br><br>
+                    <a target="_blank" href="https://twitter.com/wardrumstudios">War Drum Studios on Twitter</a>
+                </div>
             </div>
         </div>
     </body>
