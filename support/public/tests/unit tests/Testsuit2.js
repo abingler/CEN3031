@@ -1,10 +1,9 @@
 describe('SuggestController', function() {
-  var scope, $controller, $location
+  var scope, $controller;
   beforeEach(module('SupportModule'));
-  beforeEach(inject(function($rootScope, _$controller_, _$location_){
+  beforeEach(inject(function($rootScope, _$controller_){
     // The injector unwraps the underscores (_) from around the parameter names when matching
     $controller = _$controller_;
-    location = _$location_;
     $scope = $rootScope.$new();
   }));
 
@@ -63,6 +62,9 @@ describe('SuggestController', function() {
       var suggest = $controller('TechnicalController', { $scope: $scope });
       expect(suggest).toBeDefined();
     });
+
+    
   });
+
 });
 
