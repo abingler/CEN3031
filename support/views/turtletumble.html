@@ -3,7 +3,13 @@
     <head>
         <title>turtle tumble support</title>
         <link rel='stylesheet' href='/javascripts/vendor/bootstrap-css/css/bootstrap.css' />
-        <link rel='stylesheet' href='/stylesheets/style_turtletumble.css' />
+        <link rel='stylesheet' href='/stylesheets/style_turtletumble.css' css="cssLink" id="cssLink"/>
+        <script type='text/javascript'>
+            var deviceAgent = navigator.userAgent.toLowerCase();
+            if (deviceAgent.match(/android/i) || deviceAgent.match(/(ipad|iphone|ipod)/i)) {
+                document.getElementById("cssLink").setAttribute("href", '/stylesheets/style_turtletumble_mobile.css');
+            }
+        </script>
         <link rel="shortcut icon" href="/images/turtletumble.ico" type="image/x-icon" />
         <script type='text/javascript' src='/javascripts/vendor/angular/angular.js'></script>
         <script type='text/javascript' src='/javascripts/vendor/angular-bootstrap/ui-bootstrap-tpls.js'></script>
@@ -17,16 +23,6 @@
         <br/>
         <br/>
         <div class="center_box">
-            <!--<div class="notintro" data-ng-controller="TodoListController"> <!--Added by Andrew B
-                <form data-ng-submit="TodoListController.Update()">
-                    <input data-ng-model="TodoListController.keywords[0]" type="text" /> Keywords0 <br>
-                    <input data-ng-model="TodoListController.keywords[1]" type="text" /> Keywords1 <br>
-                    <input data-ng-model="TodoListController.keywords[2]" type="text" /> Keywords2 <br>
-                    <input data-ng-model="TodoListController.suggestion" type="text" /> Suggestion <br>
-                    <input data-ng-model="TodoListController.platform" type="text" /> Platform <br>
-                    <input type="submit" />
-                </form>
-            </div>-->
             <div class="intro" data-ng-show="main.selected === 0">
                 <p>
                     Thanks for contacting us about turtle tumble. What do you need help with?
