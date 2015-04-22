@@ -209,6 +209,26 @@ describe('SuggestController', function() {
           var tech = $controller('TechnicalController', { $scope: $scope });
           expect(tech.count).not.toBe(23);
         });
+    it('test function shouldShowSendEmail', inject(function($controller) {
+          var tech = $controller('TechnicalController',{$scope:$scope});
+          var result = tech.shouldShowSendEmail();
+          expect(result).toBe(tech.showSendEmail);
+    }));
+    it('test function shouldShowCongrats', inject(function($controller) {
+          var tech = $controller('TechnicalController',{$scope:$scope});
+          var result = tech.shouldShowCongrats();
+          expect(result).toBe(tech.showCongrats);
+    }));
+    it('test function shouldShowWillRespond', inject(function($controller) {
+          var tech = $controller('TechnicalController',{$scope:$scope});
+          var result = tech.shouldShowWillRespond();
+          expect(result).toBe(tech.showWillRespond);
+    }));
+    it('test function shouldShowSendEmail', inject(function($controller) {
+          var tech = $controller('TechnicalController',{$scope:$scope});
+          var result = tech.shouldShowSuggestion();
+          expect(result).toBe(tech.showSuggestion);
+    }));
 
     
   });
